@@ -1,6 +1,18 @@
+# The function reads the outcome-of-care-measures.csv ﬁle and returns a character vector
+# with the name of the hospital that has the best (i.e. lowest) 30-day mortality for the speciﬁed outcome
+# in that state. The hospital name is the name provided in the Hospital.Name variable. The outcomes can
+# be one of “heart attack”, “heart failure”, or “pneumonia”. Hospitals that do not have data on a particular
+# outcome should be excluded from the set of hospitals when deciding the rankings.
+
 best<-function(state, outcome){
+  
   caremeasures<-read.csv("outcome-of-care-measures.csv",colClasses = "character")
   caremeasures<-caremeasures[caremeasures$State==state,]
+  
+  if(nrow(caremeasures)==0)
+  {
+    stop("Invalid State")
+  }
   
   if(outcome=="Heart attack"){
   
